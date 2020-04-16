@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Product list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="col-md-4">
+		<h3 th:inline="text">Welcome
+			[[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<div class="col-md-4" style="padding: 10px 5px">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+	<div class="col-md-4" style="padding: 10px 5px">
+		<form th:action="@{/customerlist}" method="get">
+			<input type="submit" value="Asiakkaat" class="btn btn-sm btn-primary"/>
+		</form>
+	</div>
+	<h1>Tuotteet <a href="/add" class="btn btn-success">Lisää tuote</a></h1>
+	<!-- Taulukko tuotteita varten -->
+	<table class="table table-striped">
+		<tr>
+			<th>Nimi</th>
+			<th>Hinta</th>
+			<th>Kategoria</th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th> <!-- muokkaus ja poisto toiminnot vain admin roolin omaavalle -->
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+		<tr th:each="product : ${products}">
+			<td th:text="${product.name}"></td>
+			<td th:text="${product.price}"></td>
+			<td th:text="${product.category.name}"></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{edit/{id}(id=${product.id})}"
+				class="btn btn-primary">Muokkaa</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a th:href="@{delete/{id}(id=${product.id})}"
+				class="btn btn-danger">Poista</a></td>
+		</tr>
+	</table>
+</body>
+</html>

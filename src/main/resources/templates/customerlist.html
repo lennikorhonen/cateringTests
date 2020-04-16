@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Customer list</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div class="col-md-4">
+		<h3 th:inline="text">Welcome
+			[[${#httpServletRequest.remoteUser}]]</h3>
+	</div>
+	<div class="col-md-4" style="padding: 10px 5px">
+		<form th:action="@{/logout}" method="post">
+			<input type="submit" value="Sign out" class="btn btn-sm btn-danger"/>
+		</form>
+	</div>
+	<div class="col-md-4" style="padding: 10px 5px">
+		<form th:action="@{/productlist}" method="get">
+			<input type="submit" value="Tuotteet" class="btn btn-sm btn-primary"/>
+		</form>
+	</div>
+	<h1>Asiakkaat <a href="/addcustomer" class="btn btn-success">Lisää asiakas</a></h1>
+	<!-- Taulukko asiakkaita varten -->
+	<table class="table table-striped">
+		<tr>
+			<th>Yritys</th>
+			<th>Etunimi</th>
+			<th>Sukunimi</th>
+			<th>S-posti</th>
+			<th>Osoite</th>
+			<th>Tilaus</th>
+			<th>Kpl</th>
+			<th sec:authorize="hasAuthority('ADMIN')"></th> <!-- muokkaus ja poisto toiminnot vain admin roolin omaavalle -->
+			<th sec:authorize="hasAuthority('ADMIN')"></th>
+		</tr>
+		<tr th:each="customer : ${customers}">
+			<td th:text="${customer.company}"></td>
+			<td th:text="${customer.firstName}"></td>
+			<td th:text="${customer.lastName}"></td>
+			<td th:text="${customer.mail}"></td>
+			<td th:text="${customer.address}"></td>
+			<td th:text="${customer.product.name}"></td>
+			<td th:text="${customer.amount}"</td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-primary" th:href="@{/editcustomer/{id}(id=${customer.id})}">Muokkaa</a></td>
+			<td sec:authorize="hasAuthority('ADMIN')"><a class="btn btn-danger" th:href="@{/deletecustomer/{id}(id=${customer.id})}">Poista</a></td>
+		</tr>
+	</table>
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Productlist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet" href="css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Lisää tuote</h1>
+	<div>
+	<!-- Html lomake tuotteen lisäämistä varten -->
+	<form th:object="${product}" th:action="@{save}" action="#" method="post">
+	<label for="name">Nimi</label> <input type="text" id="name" th:field="*{name}">
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<label for="price">Hinta</label> <input type="text" id="price" th:field="*{price}">
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<label for="category">Kategoria</label><select id="category" th:field="*{category}"
+	 class="form-control"><option th:each="category:${category}" th:value="${category.categoryId}"
+	 th:text="${category.name}"></option>
+	 </select>
+	<div style="clear: both; display: block; height: 10px;"></div>
+	<input type="submit" value="Lisää" class="btn btn-primary"/>
+	</form>
+	</div>
+</body>
+</html>

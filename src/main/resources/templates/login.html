@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+<title>Kirjaudu sisään</title>
+<link type="text/css" rel="stylesheet" href="/css/bootstrap.min.css"
+	th:href="@{css/bootstrap.min.css}" />
+</head>
+<body>
+	<div align="center">
+		<h1>Catering palvelu</h1>
+		<h3>Kirjaudu sisään</h3>
+		<div class="col-md-4 col-md-offset-4">
+			<div class="alert alert-danger" th:if="${param.error}">Väärä
+				käyttäjänimi ja salasana</div>
+			<div class="alert alert-warning" th:if="${param.logout}">Olet
+				kirjautunut ulos</div>
+			<form th:action="@{/login}" method="post">
+				<div>
+					<label> Käyttäjänimi: <input type="text" name="username"
+						class="form-control" />
+					</label>
+				</div>
+				<div>
+					<label> Salasana: <input type="password" name="password"
+						class="form-control" />
+					</label>
+				</div>
+				<div>
+					<input type="submit" value="Kirjaudu" class="btn btn-primary" />
+				</div>
+			</form>
+			<br /> <a th:href="@{/signup}" class="btn btn-primary">Luo
+				käyttäjätunnus</a> <br> Ei käytössä <br /> <a id="github-button"
+				class="btn btn-block btn-social btn-github">Sign in with GitHub
+			</a>
+			<div class="col s12 m6 offset-m3 center-align">
+				<a class="oauth-container btn darken-4 white black-text"
+					href="/login/google-oauth/" style="text-transform: none">
+					<div class="left">
+						<img width="20px" style="margin-top: 7px; margin-right: 8px"
+							alt="Google sign-in"
+							src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/
+							Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" />Kirjaudu
+						Googlella
+					</div>
+				</a>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

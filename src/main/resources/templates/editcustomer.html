@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Customerlist</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link type="text/css" rel="stylesheet"
+	href="../css/bootstrap.min.css"
+	th:href="@{../css/bootstrap.min.css}" />
+</head>
+<body>
+	<h1>Lisää asiakas</h1>
+	<div>
+		<!-- Html lomake tuotteen lisäämistä varten -->
+		<form th:object="${customer}" th:action="@{../savecustomer}"
+			action="#" method="post">
+			<label for="id"></label> <input type="hidden" id="id"
+				th:field="*{id}" class="form-control" /> <label for="company">Yritys</label>
+			<input type="text" id="company" th:field="*{company}">
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="firstName">Etunimi</label> <input type="text"
+				id="firstName" th:field="*{firstName}">
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="lastName">Sukunimi</label><input type="text"
+				id="lastName" th:field="*{lastName}">
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="mail">S-posti</label><input type="text" id="mail"
+				th:field="*{mail}">
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="address">Osoite</label><input type="text" id="address"
+				th:field="*{address}">
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<label for="product">Tilaus</label><select id="product"
+				th:field="*{product}" class="form-control"><option
+					th:each="product:${product}" th:value="${product.id}"
+					th:text="${product.name}"></option>
+			</select>
+			<div style="clear: both; display: block; height: 10px;"></div>
+			<input type="submit" value="Tallenna" class="btn btn-primary" />
+		</form>
+	</div>
+</body>
+</html>
